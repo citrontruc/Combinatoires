@@ -16,4 +16,8 @@
   <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CombinatorialExercises\Combinatoires.csproj" />
+  </ItemGroup>
 </Project>
