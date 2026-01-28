@@ -43,4 +43,47 @@ public class CombinationGenerationTests
         // Assert
         Assert.Equivalent(listExpectedResult, combinationsGenerated);
     }
+
+    [Fact]
+    public void GetT9Combinations_WithShortInput_ReturnsAllCombinations()
+    {
+        // Arrange
+        List<int> listInput = new() { 1, 1, 2 };
+        List<List<string>> listExpectedResult = new()
+        {
+            new() { "aad" },
+            new() { "bad" },
+            new() { "cad" },
+            new() { "abd" },
+            new() { "bbd" },
+            new() { "cbd" },
+            new() { "acd" },
+            new() { "bcd" },
+            new() { "ccd" },
+            new() { "aae" },
+            new() { "bae" },
+            new() { "cae" },
+            new() { "abe" },
+            new() { "bbe" },
+            new() { "cbe" },
+            new() { "ace" },
+            new() { "bce" },
+            new() { "cce" },
+            new() { "aaf" },
+            new() { "baf" },
+            new() { "caf" },
+            new() { "abf" },
+            new() { "bbf" },
+            new() { "cbf" },
+            new() { "acf" },
+            new() { "bcf" },
+            new() { "ccf" },
+        };
+
+        // Act
+        List<List<string>> combinationsGenerated = GetT9Combinations(listInput);
+
+        // Assert
+        Assert.Equivalent(listExpectedResult, combinationsGenerated);
+    }
 }
