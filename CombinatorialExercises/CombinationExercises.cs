@@ -75,7 +75,7 @@ public static class CombinationExercises
             result.AddRange(interList);
         }
 
-        return result.Distinct().ToList();
+        return result.Distinct(StringComparer.Ordinal).ToList();
     }
 
     /// <summary>
