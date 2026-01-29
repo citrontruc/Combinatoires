@@ -2,7 +2,9 @@
 A class to generate combinations from a list of elements.
 */
 
-public static class Combinations
+namespace Combinations;
+
+public static class CombinationExercises
 {
     public static readonly Dictionary<int, List<string>> dictT9 = new()
     {
@@ -52,22 +54,23 @@ public static class Combinations
     /// <returns>A list of the list of all the combinations.</returns>
     public static List<string> GenerateCombinations(List<string> listCharacters)
     {
-        if (listCharacters.Count() == 0)
+        if (listCharacters.Count == 0)
         {
-            return new();
+            return new List<string>();
         }
 
-        if (listCharacters.Count() == 1)
+        if (listCharacters.Count == 1)
         {
             return listCharacters;
         }
 
         List<string> result = new();
-        for (int i = 0; i < listCharacters.Count(); i++)
+        for (int i = 0; i < listCharacters.Count; i++)
         {
             List<string> interList = GenerateCombinations(
-                listCharacters.Where((item, index) => index != i).ToList()
-            );
+                    listCharacters.Where((item, index) => index != i).ToList()
+                )
+                .ToList();
             interList = interList.Select(listElement => listCharacters[i] + listElement).ToList();
             result.AddRange(interList);
         }
@@ -88,18 +91,18 @@ public static class Combinations
     {
         List<List<string>> result = new();
 
-        if (currentCombinations is null)
+        if (currentCombinations?.Count == 0 || currentCombinations is null)
         {
-            for (int i = 0; i < listStrings.Count(); i++)
+            for (int i = 0; i < listStrings.Count; i++)
             {
                 result.Add(new() { listStrings[i] });
             }
             return result;
         }
 
-        for (int i = 0; i < currentCombinations.Count(); i++)
+        for (int i = 0; i < currentCombinations.Count; i++)
         {
-            for (int j = 0; j < listStrings.Count(); j++)
+            for (int j = 0; j < listStrings.Count; j++)
             {
                 result.Add(
                     currentCombinations[i]
@@ -121,26 +124,22 @@ public static class Combinations
     /// <returns></returns>
     public static List<List<string>> GetT9Combinations(List<int> listCharacters)
     {
-        if (listCharacters.Count() == 0)
+        if (listCharacters.Count == 0)
         {
-            return new();
+            return new List<List<string>>();
         }
 
         List<List<string>> result = new();
         List<List<string>> listT9Equivalent = new();
-        for (int i = 0; i < listCharacters.Count(); i++)
+        for (int i = 0; i < listCharacters.Count; i++)
         {
             listT9Equivalent.Add(dictT9[listCharacters[i]]);
         }
 
-        for (int i = 1; i < listCharacters.Count() + 1; i++)
+        for (int i = 1; i < listCharacters.Count + 1; i++)
         {
             result = MergeLists(listT9Equivalent[^i], result);
         }
-
-        int numTotalCombinations = listT9Equivalent
-            .Select(listElement => listElement.Count())
-            .Aggregate(1, (a, b) => a * b);
 
         return result;
     }

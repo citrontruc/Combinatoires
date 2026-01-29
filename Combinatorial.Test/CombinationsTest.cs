@@ -2,11 +2,11 @@
 Our test file to check if all combinations of a string list are generated.
 */
 
-using static Combinations;
+using static Combinations.CombinationExercises;
 
 namespace Combinatorial.Test;
 
-public class CombinationGenerationTests
+public class CombinationsTest
 {
     [Fact]
     public void GenerateCombinations_WithInputWithOnlyDistinctElements_ReturnsAllCombinations()
