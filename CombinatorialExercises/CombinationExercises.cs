@@ -6,7 +6,7 @@ namespace Combinations;
 
 public static class CombinationExercises
 {
-    public static readonly Dictionary<int, List<string>> dictT9 = new()
+    internal static readonly Dictionary<int, List<string>> dictT9 = new()
     {
         {
             1,
@@ -54,7 +54,7 @@ public static class CombinationExercises
     /// <returns>A list of the list of all the combinations.</returns>
     public static List<string> GenerateCombinations(List<string> listCharacters)
     {
-        if (listCharacters.Count == 0)
+        if (listCharacters.Count == 0 || listCharacters is null)
         {
             return new List<string>();
         }
@@ -76,6 +76,30 @@ public static class CombinationExercises
         }
 
         return result.Distinct(StringComparer.Ordinal).ToList();
+    }
+
+    /// <summary>
+    /// Proposition IA générative
+    /// </summary>
+    /// <param name="characters"></param>
+    /// <returns></returns>
+    public static IEnumerable<string> GenerateCombinations(IEnumerable<string> characters)
+    {
+        // Use an array to avoid multiple enumerations of the input
+        var charArray = characters as string[] ?? characters.ToArray();
+
+        if (!charArray.Any())
+            return Enumerable.Empty<string>();
+        if (charArray.Length == 1)
+            return charArray;
+
+        return charArray
+            .SelectMany(
+                (c, i) =>
+                    GenerateCombinations(charArray.Where((_, index) => index != i))
+                        .Select(remainder => c + remainder)
+            )
+            .Distinct(StringComparer.Ordinal);
     }
 
     /// <summary>
@@ -124,7 +148,7 @@ public static class CombinationExercises
     /// <returns></returns>
     public static List<List<string>> GetT9Combinations(List<int> listCharacters)
     {
-        if (listCharacters.Count == 0)
+        if (listCharacters.Count == 0 || listCharacters is null)
         {
             return new List<List<string>>();
         }
